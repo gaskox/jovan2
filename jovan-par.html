@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trening u paru · Jovan Ikić · Novi Sad</title>
+<meta name="description" content="Trening u paru sa Jovanom Ikićem u Novom Sadu. 20€ po terminu za oboje. Prvi trening je besplatan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Boje i fontovi (Noćna menta) ---------- */
+  :root {
+    --noc: #0B2530;          /* glavna tamna */
+    --noc-tamnija: #071A22;  /* footer */
+    --potez: #14414D;        /* tamna površina, linije */
+    --menta: #56D3C5;        /* akcenat */
+    --menta-tamna: #0E7C73;  /* mali tekst u boji na beloj pozadini */
+    --menta-svetla: #EAF6F4; /* svetla površina, krupne reči u pozadini */
+    --siva: #F3F5F6;         /* kartice recenzija */
+    --bela: #FFFFFF;
+    --meki-na-tamnom: #b7cdd1;
+    --meki-na-svetlom: #3d5560;
+    --font-naslov: 'Barlow Condensed', sans-serif;
+    --font-tekst: 'Inter', sans-serif;
+    --ivica: max(64px, calc((100vw - 1360px) / 2));  /* levo/desno: na velikim ekranima sadržaj ostaje u sredini */
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bela);
+    color: var(--noc);
+    font-family: var(--font-tekst);
+    font-size: 17px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  h1, h2, h3, p { margin: 0; }
+  .nf {
+    font-family: var(--font-naslov);
+    font-weight: 800;
+    font-style: italic;
+    text-transform: uppercase;
+    line-height: .92;
+  }
+  .nadnaslov {
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--menta-tamna);
+  }
+  .nadnaslov--menta { color: var(--menta); }
+  .h2 { font-size: 64px; }
+  .meki { color: var(--meki-na-svetlom); }
+
+  /* dugmad */
+  .dugme {
+    display: inline-block;
+    padding: 16px 30px;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 16px;
+    white-space: nowrap;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: transform .15s ease, filter .15s ease;
+  }
+  .dugme:hover { transform: translateY(-2px); filter: brightness(1.08); }
+  .dugme--menta { background: var(--menta); color: var(--noc); }
+  .dugme--tamno { background: var(--noc); color: var(--bela); }
+  .dugme--okvir-menta { border-color: var(--menta); color: var(--menta); }
+  .dugme--okvir-tamno { border-color: var(--noc); color: var(--noc); }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--menta-tamna); outline-offset: 3px; }
+
+  /* krupna reč u pozadini sekcije */
+  .duh {
+    position: absolute;
+    z-index: -1;
+    white-space: nowrap;
+    line-height: .8;
+    pointer-events: none;
+  }
+
+  /* ================= 1. ULAZ ================= */
+  .ulaz {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 800px;
+    display: flex;
+    flex-direction: column;
+    background: var(--noc);
+    color: var(--bela);
+    border-radius: 0 0 10px 10px;
+  }
+  .ulaz__foto { position: absolute; z-index: -2; inset: 0 0 0 46%; }
+  .ulaz__foto img { object-position: 50% 12%; }
+  .ulaz__preliv {
+    position: absolute; z-index: -1; inset: 0;
+    background: linear-gradient(90deg, var(--noc) 0, var(--noc) 45%, rgba(11,37,48,.55) 72%, rgba(11,37,48,.15) 100%);
+  }
+  .ulaz__linija { height: 10px; background: var(--menta); flex: none; }
+  .zaglavlje {
+    padding: 26px var(--ivica) 0;
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+  }
+  .zaglavlje__levo { display: flex; gap: 28px; align-items: center; }
+  .logo { font-size: 30px; white-space: nowrap; }
+  .logo span { color: var(--menta); }
+  .nazad { font-weight: 600; font-size: 14px; color: var(--meki-na-tamnom); white-space: nowrap; }
+  .meni { display: flex; gap: 28px; align-items: center; font-weight: 600; font-size: 15px; }
+  .meni__dugme { display: none; }
+  .ulaz__tekst {
+    flex: 1;
+    padding: 40px var(--ivica) 72px;
+    display: flex; flex-direction: column; gap: 22px; justify-content: center;
+    max-width: calc(800px + 2 * var(--ivica)); /* padding je u širini, pa ga dodajemo */
+  }
+  .ulaz__naslov { font-size: clamp(68px, 9.7vw, 140px); }
+  .ulaz__naslov .koga { color: var(--menta); }
+  .ulaz__opis { font-size: 19px; color: var(--meki-na-tamnom); max-width: 480px; }
+  .red-dugmadi { display: flex; gap: 14px; flex-wrap: wrap; }
+  /* ulaznica: glavni deo + odrezak sa isprekidanom linijom i dva zareza */
+  .karta {
+    --odrezak: 64px; --rez: 11px;
+    position: absolute; right: var(--ivica); bottom: 64px;
+    display: flex;
+    background: var(--menta); color: var(--noc);
+    border-radius: 16px;
+    transform: rotate(-3deg);
+    white-space: nowrap;
+    -webkit-mask:
+      radial-gradient(circle var(--rez) at calc(100% - var(--odrezak)) 0, #0000 97%, #000) ,
+      radial-gradient(circle var(--rez) at calc(100% - var(--odrezak)) 100%, #0000 97%, #000);
+    -webkit-mask-composite: source-in;
+    mask:
+      radial-gradient(circle var(--rez) at calc(100% - var(--odrezak)) 0, #0000 97%, #000) ,
+      radial-gradient(circle var(--rez) at calc(100% - var(--odrezak)) 100%, #0000 97%, #000);
+    mask-composite: intersect;
+  }
+  .karta__glavno { padding: 20px 28px; }
+  .karta__odrezak {
+    position: relative; flex: none; width: var(--odrezak);
+    display: flex; align-items: center; justify-content: center;
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    font-weight: 700; font-size: 12px; letter-spacing: .24em; text-transform: uppercase;
+  }
+  .karta__odrezak::before {
+    content: ""; position: absolute; left: 0; top: calc(var(--rez) + 6px); bottom: calc(var(--rez) + 6px);
+    border-left: 3px dashed rgba(11, 37, 48, .55);
+  }
+  .karta__gore { font-weight: 700; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+  .karta__rec { font-size: 56px; }
+  .karta__dole { font-weight: 600; font-size: 14px; margin-top: 4px; }
+
+  /* ================= 2. REFERENCE ================= */
+  .reference { padding: 80px var(--ivica); display: flex; flex-direction: column; gap: 28px; }
+  .reference__glava { display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center; }
+  .reference__glava .h2 { font-size: 56px; }
+  .ocena { display: inline-flex; gap: 10px; align-items: center; font-weight: 600; flex-wrap: wrap; justify-content: center; }
+  .zvezde { color: #FBBC04; font-size: 18px; letter-spacing: 2px; }
+  .reference__red { display: flex; align-items: center; gap: 20px; }
+  .reference__razmak { flex: none; width: 64px; } /* da kartice ostanu na sredini */
+  .recenzije {
+    flex: 1; min-width: 0;
+    display: flex; gap: 20px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .recenzije::-webkit-scrollbar { display: none; }
+  .recenzija {
+    flex: 0 0 calc((100% - 40px) / 3); /* tačno tri vidljive */
+    scroll-snap-align: start;
+    background: var(--siva);
+    border-radius: 24px; padding: 28px;
+    display: flex; flex-direction: column; gap: 14px;
+    min-height: 220px;
+  }
+  .recenzija__ko { display: flex; gap: 12px; align-items: center; }
+  .recenzija__slovo {
+    flex: none; width: 44px; height: 44px; border-radius: 50%;
+    color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .recenzija__ime { display: block; font-weight: 700; }
+  .recenzija__datum { display: block; font-size: 14px; color: var(--meki-na-svetlom); }
+  .recenzija__izvor { display: flex; gap: 10px; align-items: center; }
+  .recenzija__izvor span:last-child { font-weight: 700; font-size: 13px; color: var(--meki-na-svetlom); }
+  .recenzija p { font-size: 16px; }
+  .krug {
+    flex: none; width: 32px; height: 32px; border-radius: 50%; border: 0;
+    background: #D9DEE1; color: var(--noc);
+    font-size: 15px; font-weight: 700; font-family: inherit;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .15s ease;
+  }
+  .krug:hover { transform: scale(1.06); background: #C9D0D4; }
+
+  /* kratka linija između sekcija */
+  .linija { display: flex; justify-content: center; }
+  .linija span { width: 120px; height: 5px; border-radius: 999px; background: var(--menta); }
+
+  /* ================= 3. KAKO IDE ================= */
+  .kako { padding: 88px var(--ivica); display: flex; flex-direction: column; gap: 48px; }
+  .kako__glava { display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; }
+  .koraci {
+    position: relative;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 1100px; width: 100%; align-self: center;
+  }
+  .koraci__traka {
+    position: absolute; left: 16.667%; top: 30px; width: 66.667%; height: 4px;
+    background: var(--menta-svetla); border-radius: 2px;
+  }
+  .koraci__punjenje { height: 100%; width: 100%; background: var(--menta); border-radius: 2px; }
+  .korak {
+    position: relative;
+    display: flex; flex-direction: column; gap: 14px;
+    padding: 0 24px; align-items: center; text-align: center;
+  }
+  .korak__broj {
+    width: 64px; height: 64px; border-radius: 50%;
+    border: 4px solid var(--menta);
+    background: var(--menta); color: var(--noc);
+    font-size: 34px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .korak__naslov { font-size: 40px; margin-top: 10px; }
+
+  /* animacija linije: puni se sleva nadesno, krugovi se pale redom */
+  @media (prefers-reduced-motion: no-preference) {
+    .koraci__punjenje { animation: kiPuni 6s ease-in-out infinite; }
+    .korak:nth-of-type(1) .korak__broj { animation: kiA 6s linear infinite; }
+    .korak:nth-of-type(2) .korak__broj { animation: kiB 6s linear infinite; }
+    .korak:nth-of-type(3) .korak__broj { animation: kiC 6s linear infinite; }
+  }
+  @keyframes kiPuni { 0%, 8% { width: 0 } 55%, 100% { width: 100% } }
+  @keyframes kiPuniV { 0%, 8% { height: 0 } 55%, 100% { height: 100% } }
+  @keyframes kiA { 0%, 4% { background: #fff; transform: scale(1) } 8% { background: #56D3C5; transform: scale(1.12) } 14%, 100% { background: #56D3C5; transform: scale(1) } }
+  @keyframes kiB { 0%, 28% { background: #fff; transform: scale(1) } 32% { background: #56D3C5; transform: scale(1.12) } 38%, 100% { background: #56D3C5; transform: scale(1) } }
+  @keyframes kiC { 0%, 51% { background: #fff; transform: scale(1) } 55% { background: #56D3C5; transform: scale(1.12) } 61%, 100% { background: #56D3C5; transform: scale(1) } }
+
+  /* ================= 4. CENA ================= */
+  .cena {
+    position: relative; isolation: isolate; overflow: hidden;
+    background: var(--potez); color: var(--bela);
+    border-radius: 10px;
+    padding: 72px var(--ivica); min-height: 440px;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; align-items: center;
+  }
+  .cena .duh { left: -20px; bottom: -70px; font-size: 520px; color: #1a505d; }
+  .cena__levo { display: flex; flex-direction: column; gap: 6px; }
+  .cena__broj { font-size: 240px; color: var(--menta); }
+  .cena__desno { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+  .stavka { display: flex; gap: 14px; align-items: center; font-size: 19px; font-weight: 600; }
+  .stavka::before {
+    content: "✓";
+    flex: none; width: 32px; height: 32px; border-radius: 50%;
+    background: var(--menta); color: var(--noc);
+    display: flex; align-items: center; justify-content: center; font-weight: 700;
+  }
+  .cena__desno .dugme { margin-top: 12px; }
+
+  /* ================= 5. O MENI + ZAŠTO U PARU ================= */
+  .omeni { padding: 80px var(--ivica); display: flex; flex-direction: column; gap: 56px; }
+  .omeni__gore { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 56px; align-items: start; }
+  .omeni__foto { height: 480px; border-radius: 24px; overflow: hidden; }
+  .omeni__foto img { object-position: 38% 12%; }
+  .omeni__tekst { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+  .omeni__tekst .h2 { font-size: 72px; }
+  .omeni__uvod { font-size: 22px; font-weight: 600; }
+  .omeni__prica { column-count: 2; column-gap: 36px; color: var(--meki-na-svetlom); }
+  .omeni__prica p { margin-bottom: 14px; break-inside: avoid; }
+  .razlozi { display: flex; flex-direction: column; gap: 20px; }
+  .razlozi__mreza { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+  .razlog { border-top: 4px solid var(--menta); padding-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+  .razlog h3 { font-size: 28px; }
+  .razlog p { color: var(--meki-na-svetlom); }
+
+  /* ================= 6. PITANJA ================= */
+  .pitanja {
+    position: relative; isolation: isolate; overflow: hidden;
+    background: var(--noc); color: var(--bela);
+    border-radius: 10px;
+    padding: 72px var(--ivica);
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; align-items: start;
+  }
+  .pitanja .duh { left: 40px; bottom: -80px; font-size: 620px; color: #11323e; }
+  .pitanja__glava { display: flex; flex-direction: column; gap: 12px; }
+  .pitanja__glava .h2 { font-size: 76px; }
+  .pitanje { border-top: 1px solid var(--potez); padding: 22px 0; display: flex; flex-direction: column; gap: 6px; }
+  .pitanje h3 { font-family: var(--font-tekst); font-weight: 700; font-size: 20px; color: var(--menta); }
+  .pitanje p { color: var(--meki-na-tamnom); }
+
+  /* ================= 7. POZIV ================= */
+  .poziv {
+    position: relative; isolation: isolate; overflow: hidden;
+    padding: 104px var(--ivica);
+    display: flex; flex-direction: column; gap: 24px; align-items: center; text-align: center;
+  }
+  .poziv__naslov { font-size: clamp(60px, 10.4vw, 150px); }
+  .poziv__naslov span { background: linear-gradient(var(--menta), var(--menta)) 0 84% / 100% 26% no-repeat; }
+  .poziv p { font-size: 19px; max-width: 460px; color: var(--meki-na-svetlom); }
+  .poziv .red-dugmadi { justify-content: center; }
+
+  /* ================= 8. FOOTER ================= */
+  .podnozje {
+    background: var(--noc-tamnija); color: var(--bela);
+    padding: 56px var(--ivica) 28px;
+    display: flex; flex-direction: column; gap: 36px;
+  }
+  .podnozje__kolone { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
+  .podnozje__kolona { display: flex; flex-direction: column; gap: 14px; }
+  .podnozje__opis { color: var(--meki-na-tamnom); max-width: 280px; }
+  .podnozje__lista { display: flex; flex-direction: column; gap: 10px; font-size: 15px; color: var(--meki-na-tamnom); }
+  .podnozje__lista--jaka { font-weight: 600; }
+  .podnozje__dno { border-top: 1px solid var(--potez); padding-top: 20px; font-size: 14px; color: var(--meki-na-tamnom); }
+
+  /* ================= TELEFON ================= */
+  @media (max-width: 800px) {
+    :root { --ivica: 20px; }
+    body { font-size: 16px; }
+    .nadnaslov { font-size: 12px; }
+    .h2 { font-size: 44px; }
+    .dugme { display: block; width: 100%; white-space: normal; }
+
+    /* ulaz: fotografija gore, tekst ispod */
+    .ulaz { min-height: 0; }
+    .ulaz__linija { height: 8px; order: 0; }
+    .zaglavlje { order: 1; }
+    .ulaz__foto { order: 2; }
+    .ulaz__tekst { order: 3; }
+    .zaglavlje { padding: 16px var(--ivica); gap: 12px; }
+    .zaglavlje__levo { gap: 14px; }
+    .logo { font-size: 26px; }
+    .nazad { font-size: 13px; }
+    .meni { gap: 12px; }
+    .meni a:not(.dugme) { display: none; } /* TODO: meni se otvara na tri crtice */
+    .meni .dugme { width: auto; padding: 10px 16px; font-size: 14px; white-space: nowrap; }
+    .meni__dugme {
+      display: flex; flex-direction: column; gap: 5px;
+      padding: 6px; background: none; border: 0; cursor: pointer;
+    }
+    .meni__dugme span { width: 24px; height: 3px; background: var(--bela); border-radius: 2px; }
+    .ulaz__foto { position: relative; z-index: 0; inset: auto; height: 340px; flex: none; }
+    .ulaz__foto img { object-position: 42% 10%; }
+    .ulaz__foto::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(11,37,48,.1) 0, rgba(11,37,48,.2) 55%, var(--noc) 100%);
+    }
+    .ulaz__preliv { display: none; }
+    .ulaz__tekst { padding: 20px var(--ivica) 32px; gap: 16px; max-width: none; flex: none; }
+    .ulaz__naslov { font-size: clamp(56px, 17.4vw, 76px); }
+    .ulaz__opis { font-size: 16px; }
+    .red-dugmadi { flex-direction: column; gap: 10px; width: 100%; }
+    /* karta ide preko fotografije: fotografija je 340px, zaglavlje ~70px */
+    .karta {
+      right: 16px; bottom: auto; top: 318px; z-index: 2;
+      border-radius: 14px; --odrezak: 44px; --rez: 8px;
+    }
+    .karta__glavno { padding: 12px 16px; }
+    .karta__odrezak { font-size: 10px; }
+    .karta__gore { font-size: 10px; }
+    .karta__rec { font-size: 34px; }
+    .karta__dole { font-size: 12px; margin-top: 0; }
+
+    /* reference: jedna kartica i početak sledeće, dugme ispod */
+    .reference { padding: 56px 0 48px; gap: 22px; }
+    .reference__glava { padding: 0 var(--ivica); }
+    .reference__glava .h2 { font-size: 44px; }
+    .ocena { font-size: 14px; }
+    .reference__red { flex-direction: column; gap: 22px; align-items: stretch; }
+    .reference__razmak { display: none; }
+    .recenzije { gap: 12px; padding: 0 var(--ivica); scroll-padding-left: var(--ivica); }
+    .recenzija { flex-basis: 84%; border-radius: 20px; padding: 22px; min-height: 200px; }
+    .krug { width: 30px; height: 30px; font-size: 14px; align-self: center; }
+    .linija span { width: 90px; }
+
+    /* kako ide: linija ide odozgo nadole */
+    .kako { padding: 56px var(--ivica); gap: 30px; }
+    .koraci { grid-template-columns: 1fr; gap: 28px; }
+    .koraci__traka { left: 26px; top: 28px; bottom: 70px; width: 4px; height: auto; }
+    .koraci__punjenje { width: 100%; height: 100%; }
+    .korak {
+      display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 16px; row-gap: 4px;
+      padding: 0; text-align: left; align-items: start;
+    }
+    .korak__broj { width: 56px; height: 56px; font-size: 30px; grid-row: span 2; }
+    .korak__naslov { font-size: 32px; margin-top: 6px; }
+
+    .cena { grid-template-columns: 1fr; gap: 22px; padding: 48px var(--ivica); min-height: 0; }
+    .cena .duh { font-size: 260px; left: -10px; bottom: -30px; }
+    .cena__broj { font-size: 150px; }
+    .stavka { font-size: 16px; gap: 12px; }
+    .stavka::before { width: 30px; height: 30px; }
+    .cena__desno { align-items: stretch; gap: 12px; }
+
+    .omeni { padding: 56px var(--ivica); gap: 36px; }
+    .omeni__gore { grid-template-columns: 1fr; gap: 16px; }
+    .omeni__foto { height: 380px; border-radius: 20px; }
+    .omeni__tekst { gap: 16px; align-items: stretch; }
+    .omeni__tekst .h2 { font-size: 52px; }
+    .omeni__uvod { font-size: 18px; }
+    .omeni__prica { column-count: 1; }
+    .razlozi { gap: 18px; }
+    .razlozi__mreza { grid-template-columns: 1fr; gap: 18px; }
+    .razlog { padding-top: 12px; }
+
+    .pitanja { grid-template-columns: 1fr; gap: 20px; padding: 48px var(--ivica); }
+    .pitanja .duh { left: auto; right: -10px; bottom: auto; top: -20px; font-size: 300px; }
+    .pitanja__glava .h2 { font-size: 48px; }
+    .pitanje { padding: 18px 0; }
+    .pitanje h3 { font-size: 18px; }
+
+    .poziv { padding: 64px var(--ivica); gap: 18px; }
+    .poziv__naslov { font-size: clamp(52px, 17.4vw, 72px); }
+    .poziv p { font-size: 16px; }
+
+    .podnozje { padding: 40px var(--ivica) 24px; gap: 26px; }
+    .podnozje__kolone { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .podnozje__kolona:first-child { grid-column: 1 / -1; gap: 8px; }
+    .podnozje__dno { padding-top: 16px; font-size: 13px; }
+  }
+
+  /* ---------- Mali pokret na dodir i na miša ---------- */
+  .stavka, .stavka::before, .razlog, .razlog h3, .pitanje, .pitanje h3, .recenzija, .recenzija__slovo {
+    transition: transform .22s cubic-bezier(.2,.7,.2,1), background-color .22s ease, border-color .22s ease, box-shadow .22s ease, color .22s ease;
+  }
+  /* recenzije su u traci koja seče sadržaj, pa joj dajemo malo mesta gore i dole za podizanje */
+  .recenzije { padding-block: 8px; margin-block: -8px; }
+
+  .stavka:active { transform: translateX(8px); }
+  .stavka:active::before { transform: scale(1.12) rotate(-8deg); }
+  .razlog:active { transform: translateY(-6px); }
+  .razlog:active h3 { color: var(--menta-tamna); }
+  .pitanje:active { transform: translateX(10px); border-top-color: var(--menta); }
+  .recenzija:active { transform: translateY(-5px); background: var(--menta-svetla); }
+  .recenzija:active .recenzija__slovo { transform: scale(1.1); }
+
+  @media (hover: hover) {
+    .stavka:hover { transform: translateX(8px); }
+    .stavka:hover::before { transform: scale(1.12) rotate(-8deg); }
+    .razlog:hover { transform: translateY(-6px); }
+    .razlog:hover h3 { color: var(--menta-tamna); }
+    .pitanje:hover { transform: translateX(10px); border-top-color: var(--menta); }
+    .recenzija:hover { transform: translateY(-5px); background: var(--menta-svetla); }
+    .recenzija:hover .recenzija__slovo { transform: scale(1.1); }
+  }
+
+
+
+  /* isti hero na svim stranama: naslov uvek tri reda, opis tri reda, pa je sve na istoj visini */
+  .ulaz__naslov { min-height: calc(3 * .92em); }
+  .ulaz__opis { min-height: 4.5em; }
+
+  /* ---------- Animacija ulaza: dvoje se sastaju ---------- */
+  @keyframes uDolazi { from { opacity: 0; transform: translateY(34px); } to { opacity: 1; transform: none; } }
+  @keyframes uProlazi { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes uZum { from { transform: scale(1.3); opacity: .3; } to { transform: none; opacity: 1; } }
+  @keyframes uLevo { from { opacity: 0; transform: translateX(-90px); } to { opacity: 1; transform: none; } }
+  @keyframes uDesno { from { opacity: 0; transform: translateX(90px); } to { opacity: 1; transform: none; } }
+  @keyframes uLinija { from { transform: scaleX(0); } to { transform: none; } }
+  @keyframes uZig {
+    from { opacity: 0; transform: translateY(-60px) rotate(-16deg) scale(1.3); }
+    55% { opacity: 1; transform: translateY(6px) rotate(-1deg) scale(.97); }
+    80% { transform: translateY(-2px) rotate(-4deg) scale(1.01); }
+  }
+  @keyframes uPlutaj { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
+  .ulaz__foto { overflow: hidden; }
+  .ulaz__foto img { will-change: transform; }
+  .ulaz__naslov .r { display: inline-block; }
+  /* dok se fontovi i slika ne učitaju, sve miruje skriveno, pa tekst ne skače */
+  html.ceka .ulaz__foto img, html.ceka .ulaz__linija, html.ceka .ulaz .zaglavlje, html.ceka .ulaz .nadnaslov, html.ceka .ulaz__naslov .r, html.ceka .ulaz__opis, html.ceka .ulaz .red-dugmadi .dugme, html.ceka .karta { opacity: 0; }
+  html:not(.ceka) .ulaz__foto img { animation: uZum 2.6s cubic-bezier(.15,.7,.2,1) backwards; }
+  html:not(.ceka) .ulaz__linija { transform-origin: left; animation: uLinija 1s cubic-bezier(.7,0,.2,1) backwards; }
+  html:not(.ceka) .ulaz .zaglavlje, html:not(.ceka) .ulaz .nadnaslov { animation: uProlazi .6s backwards; }
+  html:not(.ceka) .ulaz__naslov .r--l { animation: uLevo .9s cubic-bezier(.2,.8,.2,1) backwards; animation-delay: calc(.3s + var(--i) * .1s); }
+  html:not(.ceka) .ulaz__naslov .r--d { animation: uDesno .9s cubic-bezier(.2,.8,.2,1) backwards; animation-delay: calc(.3s + var(--i) * .1s); }
+  html:not(.ceka) .ulaz__opis { animation: uDolazi .7s .95s cubic-bezier(.2,.7,.2,1) backwards; }
+  html:not(.ceka) .ulaz .red-dugmadi .dugme { animation: uDolazi .7s cubic-bezier(.2,.7,.2,1) backwards; animation-delay: calc(1.1s + var(--k, 0) * .1s); }
+  html:not(.ceka) .karta { animation: uZig .9s 1.5s cubic-bezier(.3,1,.4,1) backwards, uPlutaj 4.5s 2.6s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) {
+    html:not(.ceka) .ulaz__foto img, html:not(.ceka) .ulaz__linija, html:not(.ceka) .ulaz .zaglavlje, html:not(.ceka) .ulaz .nadnaslov, html:not(.ceka) .ulaz__naslov .r, html:not(.ceka) .ulaz__opis, html:not(.ceka) .ulaz .red-dugmadi .dugme, html:not(.ceka) .karta { animation: none !important; }
+  }
+
+  @media (max-width: 800px) and (prefers-reduced-motion: no-preference) {
+    .koraci__punjenje { animation-name: kiPuniV; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .dugme, .krug, .stavka, .stavka::before, .razlog, .razlog h3, .pitanje, .pitanje h3, .recenzija, .recenzija__slovo { transition: none; }
+    .stavka:hover, .razlog:hover, .pitanje:hover, .recenzija:hover, .stavka:active, .razlog:active, .pitanje:active, .recenzija:active { transform: none; }
+  }
+</style>
+<script>
+  /* animacija kreće tek kad su fontovi i slika spremni, da tekst ne bi skakao */
+  (function () {
+    var h = document.documentElement; h.classList.add('ceka');
+    var gotovo = false;
+    function kreni() { if (gotovo) return; gotovo = true; h.classList.remove('ceka'); }
+    setTimeout(kreni, 1800);
+    function start() {
+      var img = document.querySelector('.ulaz__foto img'), p = [];
+      if (document.fonts && document.fonts.load) {
+        p.push(document.fonts.load('italic 800 1em "Barlow Condensed"'), document.fonts.load('400 1em Inter'), document.fonts.load('700 1em Inter'));
+      }
+      if (img && img.decode) p.push(img.decode().catch(function () {}));
+      Promise.all(p).then(kreni, kreni);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+  })();
+</script>
+</head>
+<body>
+
+<!-- ================= 1. ULAZ ================= -->
+<header class="ulaz">
+  <div class="ulaz__foto"><img src="slike/jovan.jpg" alt="Jovan Ikić, kondicioni trener"></div>
+  <div class="ulaz__preliv" aria-hidden="true"></div>
+  <div class="ulaz__linija" aria-hidden="true"></div>
+
+  <div class="zaglavlje">
+    <div class="zaglavlje__levo">
+      <a class="logo nf" href="index.html">Jovan <span>Ikić</span></a>
+      <a class="nazad" href="index.html">← Nazad</a>
+    </div>
+    <nav class="meni" aria-label="Glavni meni">
+      <a href="#kako-ide">Kako ide</a>
+      <a href="#o-meni">O meni</a>
+      <a href="#pitanja">Pitanja</a>
+      <a class="dugme dugme--menta" href="#kontakt">Javi se</a>
+      <!-- TODO: na telefonu ovo dugme otvara meni -->
+      <button class="meni__dugme" type="button" aria-label="Meni"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+
+  <div class="ulaz__tekst">
+    <span class="nadnaslov nadnaslov--menta">Trening u paru · Novi Sad</span>
+    <h1 class="ulaz__naslov nf"><span class="r r--l" style="--i:0">Treniraj</span> <span class="r r--l" style="--i:1">sa</span> <span class="r r--l" style="--i:2">onim</span> <span class="koga"><span class="r r--d" style="--i:2">koga</span> <span class="r r--d" style="--i:1">voliš</span></span></h1>
+    <p class="ulaz__opis">Jedan trener, dvoje ljudi, jedan cilj. Lakše je da dođeš kad te neko čeka, a Jovan prilagodi vežbe oboma.</p>
+    <div class="red-dugmadi">
+      <a class="dugme dugme--menta" style="--k:0" href="#kontakt">Zakaži besplatan prvi trening</a>
+      <a class="dugme dugme--okvir-menta" style="--k:1" href="#kako-ide">Kako ide</a>
+    </div>
+  </div>
+
+  <div class="karta">
+    <div class="karta__glavno">
+      <div class="karta__gore">Prvi trening</div>
+      <div class="karta__rec nf">Besplatan</div>
+      <div class="karta__dole">Posle toga 20€ za oboje</div>
+    </div>
+    <div class="karta__odrezak" aria-hidden="true">Ulaznica</div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= 2. REFERENCE ================= -->
+<!-- TODO: prave Google recenzije (ime, datum, tekst) i prava ocena. Ne izmišljati. -->
+<section class="reference" aria-labelledby="ref-naslov">
+  <div class="reference__glava">
+    <span class="nadnaslov">Reference</span>
+    <h2 class="h2 nf" id="ref-naslov">Šta kažu oni koji treniraju</h2>
+    <span class="ocena"><span class="zvezde" aria-hidden="true">★★★★★</span><span>ovde ide ocena od 5 na Google</span></span>
+  </div>
+  <div class="reference__red">
+    <span class="reference__razmak" aria-hidden="true"></span>
+    <div class="recenzije" id="recenzije">
+      <article class="recenzija">
+        <div class="recenzija__ko"><span class="recenzija__slovo" style="background:#1F6FD0">A</span><span><span class="recenzija__ime">Ime i prezime</span><span class="recenzija__datum">ovde ide datum</span></span></div>
+        <div class="recenzija__izvor"><span class="zvezde" aria-hidden="true">★★★★★</span><span>Google</span></div>
+        <p>Ovde ide tekst prve Google recenzije.</p>
+      </article>
+      <article class="recenzija">
+        <div class="recenzija__ko"><span class="recenzija__slovo" style="background:#B8246A">B</span><span><span class="recenzija__ime">Ime i prezime</span><span class="recenzija__datum">ovde ide datum</span></span></div>
+        <div class="recenzija__izvor"><span class="zvezde" aria-hidden="true">★★★★★</span><span>Google</span></div>
+        <p>Ovde ide tekst druge Google recenzije.</p>
+      </article>
+      <article class="recenzija">
+        <div class="recenzija__ko"><span class="recenzija__slovo" style="background:#D9480F">C</span><span><span class="recenzija__ime">Ime i prezime</span><span class="recenzija__datum">ovde ide datum</span></span></div>
+        <div class="recenzija__izvor"><span class="zvezde" aria-hidden="true">★★★★★</span><span>Google</span></div>
+        <p>Ovde ide tekst treće Google recenzije.</p>
+      </article>
+      <article class="recenzija">
+        <div class="recenzija__ko"><span class="recenzija__slovo" style="background:#0E7C73">D</span><span><span class="recenzija__ime">Ime i prezime</span><span class="recenzija__datum">ovde ide datum</span></span></div>
+        <div class="recenzija__izvor"><span class="zvezde" aria-hidden="true">★★★★★</span><span>Google</span></div>
+        <p>Ovde ide tekst četvrte Google recenzije.</p>
+      </article>
+      <article class="recenzija">
+        <div class="recenzija__ko"><span class="recenzija__slovo" style="background:#6B3FD1">E</span><span><span class="recenzija__ime">Ime i prezime</span><span class="recenzija__datum">ovde ide datum</span></span></div>
+        <div class="recenzija__izvor"><span class="zvezde" aria-hidden="true">★★★★★</span><span>Google</span></div>
+        <p>Ovde ide tekst pete Google recenzije.</p>
+      </article>
+    </div>
+    <button class="krug" id="recenzije-dalje" type="button" aria-label="Sledeće recenzije">→</button>
+  </div>
+</section>
+
+<div class="linija" aria-hidden="true"><span></span></div>
+
+<!-- ================= 3. KAKO IDE ================= -->
+<section class="kako" id="kako-ide" aria-labelledby="kako-naslov">
+  <div class="kako__glava">
+    <span class="nadnaslov">Kako ide</span>
+    <h2 class="h2 nf" id="kako-naslov">Od poruke do prvog treninga</h2>
+  </div>
+  <div class="koraci">
+    <div class="koraci__traka" aria-hidden="true"><div class="koraci__punjenje"></div></div>
+    <div class="korak">
+      <span class="korak__broj nf">1</span>
+      <h3 class="korak__naslov nf">Javite se</h3>
+      <p class="meki">Pošaljite poruku na Viber ili Instagram. Napišite koliko vas je i kada vam odgovara.</p>
+    </div>
+    <div class="korak">
+      <span class="korak__broj nf">2</span>
+      <h3 class="korak__naslov nf">Prvi trening</h3>
+      <p class="meki">Besplatan. Jovan vas upozna, vidi ko šta može i objasni kako izgleda plan.</p>
+    </div>
+    <div class="korak">
+      <span class="korak__broj nf">3</span>
+      <h3 class="korak__naslov nf">Treniranje</h3>
+      <p class="meki">Dolazite zajedno, 20€ po terminu. Kad vam odgovara, ide i paket.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. CENA ================= -->
+<section class="cena" aria-label="Cena treninga u paru">
+  <div class="duh nf" aria-hidden="true">Par</div>
+  <div class="cena__levo">
+    <span class="nadnaslov nadnaslov--menta">Trening za dvoje</span>
+    <span class="cena__broj nf">20€</span>
+    <span>po terminu, za oboje</span>
+  </div>
+  <div class="cena__desno">
+    <div class="stavka">Prvi trening je besplatan</div>
+    <div class="stavka">Štediš 10€ svaki put</div>
+    <div class="stavka">Isti trening, opterećenje za svakog posebno</div>
+    <div class="stavka">Može i prijatelj ili brat</div>
+    <a class="dugme dugme--menta" href="#kontakt">Zakaži besplatan prvi trening</a>
+  </div>
+</section>
+
+<!-- ================= 5. O MENI + ZAŠTO U PARU ================= -->
+<section class="omeni" id="o-meni" aria-labelledby="omeni-naslov">
+  <div class="omeni__gore">
+    <div class="omeni__foto"><img src="slike/jovan.jpg" alt="Jovan Ikić"></div>
+    <div class="omeni__tekst">
+      <span class="nadnaslov">O meni</span>
+      <h2 class="h2 nf" id="omeni-naslov">Trener koji i sam igra</h2>
+      <p class="omeni__uvod">Ja sam Jovan Ikić, kondicioni trener i ragbista iz Novog Sada.</p>
+      <!-- TODO: prava Jovanova priča, tri pasusa. Ne izmišljati. -->
+      <div class="omeni__prica">
+        <p>Ovde ide prvi pasus: kako je Jovan počeo sa sportom, od kada igra ragbi i za koji klub. Dve do tri rečenice, njegovim rečima.</p>
+        <p>Ovde ide drugi pasus: kako je postao kondicioni trener, gde se školovao i s kim je do sada radio. Dve do tri rečenice.</p>
+        <p>Ovde ide treći pasus: kako izgleda njegov pristup, šta klijent može da očekuje na treningu i zašto mu je važno da plan bude prilagođen svakome. Dve do tri rečenice.</p>
+      </div>
+      <a class="dugme dugme--tamno" href="#kontakt">Javi se</a>
+    </div>
+  </div>
+  <div class="razlozi">
+    <span class="nadnaslov">Zašto u paru · Razlog da dođete i kad se ne da</span>
+    <div class="razlozi__mreza">
+      <div class="razlog"><h3 class="nf">Obaveza prema drugome</h3><p>Teže je otkazati kad neko čeka. Treninzi se ne preskaču.</p></div>
+      <div class="razlog"><h3 class="nf">Svako svojim tempom</h3><p>Isti trening, ali različito opterećenje. Ne morate biti isti nivo.</p></div>
+      <div class="razlog"><h3 class="nf">Jeftinije</h3><p>20€ za dvoje umesto 30€. Za mesec dana razlika je velika.</p></div>
+      <div class="razlog"><h3 class="nf">Zajednički uspeh</h3><p>Zajedno merite napredak i slavite ga. To drži motivaciju.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6. PITANJA ================= -->
+<section class="pitanja" id="pitanja" aria-labelledby="pitanja-naslov">
+  <div class="duh nf" aria-hidden="true">?</div>
+  <div class="pitanja__glava">
+    <span class="nadnaslov nadnaslov--menta">Pitanja</span>
+    <h2 class="h2 nf" id="pitanja-naslov">Najčešće pitanje pre prvog treninga</h2>
+  </div>
+  <div>
+    <div class="pitanje"><h3>Nikad nisam trenirao. Mogu li?</h3><p>Možete. Jovan počinje od vašeg nivoa i povećava opterećenje postepeno.</p></div>
+    <div class="pitanje"><h3>Šta ako smo različitog nivoa?</h3><p>Vežbe su iste, opterećenje je različito. Svako radi onoliko koliko može.</p></div>
+    <div class="pitanje"><h3>Gde se trenira?</h3><p>Invictus trening centar, Novi Sad.</p></div>
+    <!-- TODO: trajanje -->
+    <div class="pitanje"><h3>Koliko traje trening?</h3><p>Ovde ide trajanje jednog termina.</p></div>
+    <div class="pitanje"><h3>Može li prijatelj ili brat umesto partnera?</h3><p>Može. Trening u paru važi za bilo koje dvoje ljudi.</p></div>
+  </div>
+</section>
+
+<!-- ================= 7. POZIV ================= -->
+<section class="poziv" id="kontakt" aria-labelledby="poziv-naslov">
+  <span class="nadnaslov">Počnite</span>
+  <h2 class="poziv__naslov nf" id="poziv-naslov">Prvi trening je <span>besplatan</span></h2>
+  <p>Pošaljite poruku i dogovorite termin za vas dvoje.</p>
+  <div class="red-dugmadi">
+    <!-- TODO: pravi Viber i Instagram linkovi -->
+    <a class="dugme dugme--tamno" href="#">Viber: ovde ide link</a>
+    <a class="dugme dugme--okvir-tamno" href="#">Instagram: ovde ide link</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= 8. FOOTER ================= -->
+<footer class="podnozje">
+  <div class="podnozje__kolone">
+    <div class="podnozje__kolona">
+      <a class="logo nf" href="index.html">Jovan <span>Ikić</span></a>
+      <span class="podnozje__opis">Kondicioni trener i ragbista. Novi Sad.</span>
+    </div>
+    <div class="podnozje__kolona">
+      <span class="nadnaslov nadnaslov--menta">Stranica</span>
+      <div class="podnozje__lista podnozje__lista--jaka">
+        <a href="#kako-ide">Kako ide</a>
+        <a href="#o-meni">O meni</a>
+        <a href="#pitanja">Pitanja</a>
+        <a href="#kontakt">Javi se</a>
+      </div>
+    </div>
+    <div class="podnozje__kolona">
+      <span class="nadnaslov nadnaslov--menta">Kontakt</span>
+      <div class="podnozje__lista">
+        <span>Viber: ovde ide link</span>
+        <span>Instagram: ovde ide link</span>
+        <span>Novi Sad, Srbija</span>
+      </div>
+    </div>
+  </div>
+  <div class="podnozje__dno">Trening u paru 20€ · Pojedinačni 15€ · Prvi trening besplatan</div>
+</footer>
+
+<script>
+  // Okruglo dugme pomera recenzije za jednu karticu; na kraju se vraća na prvu.
+  (function () {
+    var red = document.getElementById('recenzije');
+    var dugme = document.getElementById('recenzije-dalje');
+    if (!red || !dugme) return;
+    dugme.addEventListener('click', function () {
+      var kartica = red.querySelector('.recenzija');
+      var razmak = parseFloat(getComputedStyle(red).columnGap) || 0;
+      var korak = kartica.getBoundingClientRect().width + razmak;
+      var naKraju = red.scrollLeft + red.clientWidth >= red.scrollWidth - 4;
+      if (naKraju) { red.scrollTo({ left: 0, behavior: 'smooth' }); }
+      else { red.scrollBy({ left: korak, behavior: 'smooth' }); }
+    });
+  })();
+</script>
+</body>
+</html>
